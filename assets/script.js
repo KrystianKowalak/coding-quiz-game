@@ -1,4 +1,5 @@
 //----------------------------------------Assignment Code----------------------------------------
+const timerEl = document.querySelector("span");
 const h1 = document.querySelector("h1");
 const intro = document.getElementById("intro");
 const startButton = document.getElementById("startButton");
@@ -59,12 +60,32 @@ const prompts = [
     }
 ];
 let waitForPressResolve;
+
 function waitForPress() {
     return new Promise(resolve => waitForPressResolve = resolve);
 }
+
 function btnResolver() {
     if (waitForPressResolve) waitForPressResolve();
- }
+}
+
+function countdown() {
+    let timer = 60;
+    timerEl.textContent = timer;
+
+    var timeInterval = setInterval(function () {
+        timer--;
+        timerEl.textContent = timer;
+
+        if(timer <= 0) {
+        //Stops execution of action at set interval
+        clearInterval(timeInterval);
+        //Calls function to create and append image
+        timerEl.textContent = "";
+        gameOver();
+        }
+    }, 1000);
+};
 
 function displayIntro(boolean) {
     if(boolean) {
@@ -98,13 +119,19 @@ function displayQuestions(int) {
         optionButtons[3].style.display = "block";
     }
 };
+
 function score() {
     console.log("test");
 }
 
+function gameOver() {
+
+};
+
 startButton.addEventListener("click", async function() {
     displayIntro(false);
     for(let i = 0; i < prompts.length; i++){
+        countdown();
         displayQuestions(i);
         await waitForPress();
     };
