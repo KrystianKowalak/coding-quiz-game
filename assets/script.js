@@ -58,6 +58,13 @@ const prompts = [
         answer: "Krystian"
     }
 ];
+let waitForPressResolve;
+function waitForPress() {
+    return new Promise(resolve => waitForPressResolve = resolve);
+}
+function btnResolver() {
+    if (waitForPressResolve) waitForPressResolve();
+ }
 
 function displayIntro(boolean) {
     if(boolean) {
@@ -80,6 +87,7 @@ function displayQuestions(int) {
     for(let i = 0; i < prompts[int].options.length; i++)
     {
         optionButtons[i].textContent = prompts[int].options[i];
+        optionButtons[i].addEventListener("click", btnResolver)
     }
     if(prompts[int].options.length == 2)
     {
@@ -90,8 +98,14 @@ function displayQuestions(int) {
         optionButtons[3].style.display = "block";
     }
 };
+function score() {
+    console.log("test");
+}
 
-startButton.addEventListener("click", function() {
+startButton.addEventListener("click", async function() {
     displayIntro(false);
-    displayQuestions(8);
+    for(let i = 0; i < prompts.length; i++){
+        displayQuestions(i);
+        await waitForPress();
+    };
 });
