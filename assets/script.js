@@ -1,7 +1,10 @@
 //----------------------------------------Assignment Code----------------------------------------
-const startButton = document.getElementById("startButton");
+const h1 = document.querySelector("h1");
 const intro = document.getElementById("intro");
-const answerOptions = document.querySelector("ol");
+const startButton = document.getElementById("startButton");
+const ol = document.querySelector("ol");
+const optionButtons = document.querySelectorAll("li button");
+const resultDisplay = document.querySelectorAll(".resultDisplay");
 
 const prompts = [
     {
@@ -58,17 +61,37 @@ const prompts = [
 
 function displayIntro(boolean) {
     if(boolean) {
-        startButton.style.display = 'block';
-        intro.style.display = 'block';
-        answerOptions.style.display = 'none';
+        startButton.style.display = "block";
+        intro.style.display = "block";
+        ol.style.display = "none";
+        resultDisplay[0].style.display = "none";
+        resultDisplay[1].style.display = "none";
+    }else {
+        startButton.style.display = "none";
+        intro.style.display = "none";
+        ol.style.display = "block";
+        resultDisplay[0].style.display = "block";
+        resultDisplay[1].style.display = "block";
     }
-    else {
-        startButton.style.display = 'none';
-        intro.style.display = 'none';
-        answerOptions.style.display = 'block';
+};
+
+function displayQuestions(int) {
+    h1.textContent = prompts[int].question;
+    for(let i = 0; i < prompts[int].options.length; i++)
+    {
+        optionButtons[i].textContent = prompts[int].options[i];
+    }
+    if(prompts[int].options.length == 2)
+    {
+        optionButtons[2].style.display = "none";
+        optionButtons[3].style.display = "none";
+    }else {
+        optionButtons[2].style.display = "block";
+        optionButtons[3].style.display = "block";
     }
 };
 
 startButton.addEventListener("click", function() {
     displayIntro(false);
+    displayQuestions(8);
 });

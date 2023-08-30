@@ -47,6 +47,7 @@ main div h1 {
 main div p {
     display: none;
     text-align: center;
+    margin: 0px 0px 8px 0px;
     font-size: 125%;
 }
 
@@ -82,8 +83,4 @@ main div li button::before {
 main div #intro {
     display: block;
     margin: 16px 0px 16px 0px;
-}
-
-main div #resultDisplay {
-    margin: 8px 0px 16px 0px;
 }
